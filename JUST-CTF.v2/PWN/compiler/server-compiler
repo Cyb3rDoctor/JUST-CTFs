@@ -1,0 +1,51 @@
+#!/usr/bin/python3
+import socket
+import sys
+import os
+import base64
+from _thread import *
+
+host = '0.0.0.0'
+port = 4123
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+try:
+    s.bind((host, port))
+except socket.error as e:
+    print(str(e))
+
+s.listen(5)
+print('Waiting for a connection.\n')
+i = 0
+def threaded_client(conn):
+    conn.send(str.encode('Welcome, type your code as base64 to compile it\n'))
+    global i
+
+    print("connection number : {}".format(i))
+    ot = conn.recv(9000)
+    os.system("touch file{}.cpp".format(i))
+    file = open("file{}.cpp".format(i), "w+")
+    try:
+        otd=base64.b64decode(ot).decode("utf-8")
+    except:
+        conn.send("Your input must be base64 encoded\n".encode())
+    file.write(otd)
+    file.close()
+
+    os.system("g++ file{}.cpp 2> err.txt".format(i))
+    er = open('err.txt', "r").read()
+    if len(er)==0:
+        conn.send("compiled successed\n".encode())
+    else:
+        conn.send(bytes(er,"utf-8"))
+
+    os.system("rm a.out file{}.cpp")
+    i += 1
+    conn.close()
+
+
+while True:
+
+    conn, addr = s.accept()
+    print('connected to: '+addr[0]+':'+str(addr[1]))
+    start_new_thread(threaded_client,(conn,))

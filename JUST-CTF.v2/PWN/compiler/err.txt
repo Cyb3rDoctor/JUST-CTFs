@@ -1,0 +1,4 @@
+In file included from file1.cpp:1:
+flag.txt:1:1: error: ‘JUST’ does not name a type
+    1 | JUST{you_find_me_here}
+      | ^~~~
