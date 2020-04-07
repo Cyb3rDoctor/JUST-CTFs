@@ -1,0 +1,2 @@
+flag in flag.txt in some dir
+
