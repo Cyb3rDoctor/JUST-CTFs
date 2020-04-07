@@ -1,7 +1,7 @@
 # JUST-CTF.v2
 ## Descreption
 <img src="/images/home_page.png">
-JUST-CTF.v2 is a CTF competition held on CTFx platform by HackerSpace-JUST.
+JUST-CTF.v2 is a CTF competition held using **[CTFx](https://gitlab.com/Milkdrop/ctfx/)** platform by HackerSpace-JUST.
 
 Competition Start Date: 03/04/2020 - 7:30 PM EEST
 
